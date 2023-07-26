@@ -10,16 +10,15 @@ const LayoutTabs = () => {
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
         tabBarStyle: {
-          backgroundColor: '#44403C',
-          paddingBottom: 0,
-          height: 60,
+          backgroundColor: '#3D3936',
+          borderTopColor: '#5f5d5c',
         },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          tabBarIcon: ({ color }) => <House color={color} size={28} />,
+          tabBarIcon: ({ color, size }) => <House color={color} size={size} />,
           tabBarActiveTintColor: '#fff',
           tabBarShowLabel: false,
         }}
@@ -27,8 +26,8 @@ const LayoutTabs = () => {
       <Tabs.Screen
         name="search"
         options={{
-          tabBarIcon: ({ color }) => (
-            <MagnifyingGlass color={color} size={28} />
+          tabBarIcon: ({ color, size }) => (
+            <MagnifyingGlass color={color} size={size} />
           ),
           tabBarActiveTintColor: '#fff',
           tabBarShowLabel: false,
@@ -37,7 +36,7 @@ const LayoutTabs = () => {
       <Tabs.Screen
         name="profile"
         options={{
-          tabBarIcon: ({ color }) => <User color={color} size={28} />,
+          tabBarIcon: ({ color, size }) => <User color={color} size={size} />,
           tabBarActiveTintColor: '#fff',
           tabBarShowLabel: false,
         }}

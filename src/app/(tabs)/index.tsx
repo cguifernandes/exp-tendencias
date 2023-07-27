@@ -12,7 +12,9 @@ const Home = () => {
       }}
     >
       <Header />
-      <Text style={{ flex: 6 }}>home</Text>
+      <View style={{ height: '87.5%' }}>
+        <Text>PROFILE</Text>
+      </View>
     </View>
   );
 };

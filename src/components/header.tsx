@@ -5,7 +5,7 @@ const Header = () => {
     <View
       style={{
         width: '100%',
-        height: 120,
+        height: '15%',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',

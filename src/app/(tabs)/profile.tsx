@@ -12,7 +12,9 @@ const Profile = () => {
       }}
     >
       <Header />
-      <Text style={{ flex: 6 }}>Oi</Text>
+      <View style={{ height: '87.5%' }}>
+        <Text>PROFILE</Text>
+      </View>
     </View>
   );
 };

@@ -12,7 +12,9 @@ const Search = () => {
       }}
     >
       <Header />
-      <Text style={{ flex: 6 }}>Search</Text>
+      <View style={{ height: '87.5%' }}>
+        <Text>PROFILE</Text>
+      </View>
     </View>
   );
 };

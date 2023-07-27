@@ -10,7 +10,6 @@ import {
   Montserrat_400Regular,
   Montserrat_700Bold,
 } from '@expo-google-fonts/montserrat';
-import Header from '../components/header';
 
 export const unstable_settings = {
   initialRouteName: 'home',

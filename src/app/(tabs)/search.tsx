@@ -11,7 +11,7 @@ const Search = () => {
         flexDirection: 'column',
       }}
     >
-      <Header />
+      <Header title="Pesquisa" />
       <View style={{ height: '87.5%' }}>
         <Text>PROFILE</Text>
       </View>

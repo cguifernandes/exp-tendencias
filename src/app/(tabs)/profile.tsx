@@ -11,7 +11,7 @@ const Profile = () => {
         flexDirection: 'column',
       }}
     >
-      <Header />
+      <Header title="Perfil" />
       <View style={{ height: '87.5%' }}>
         <Text>PROFILE</Text>
       </View>

@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 import Header from '../../components/header';
-
+import { API_KEY } from '@env';
 const Search = () => {
   return (
     <View
@@ -13,7 +13,7 @@ const Search = () => {
     >
       <Header title="Pesquisa" />
       <View style={{ height: '87.5%' }}>
-        <Text>PROFILE</Text>
+        <Text>{`oiiii ${API_KEY}`}</Text>
       </View>
     </View>
   );

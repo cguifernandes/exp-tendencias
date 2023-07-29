@@ -20,7 +20,7 @@ const Home = () => {
           display: 'flex',
           flexDirection: 'column',
           rowGap: 20,
-          paddingTop: 40,
+          marginTop: 40,
         }}
       >
         <View

@@ -7,9 +7,10 @@ import Input from '../../components/input';
 import { typeMovies } from '../../utils/types';
 import AnimatedLottieView from 'lottie-react-native';
 import { getData } from '../../utils/fetch';
+import { ActivityIndicator } from 'react-native';
 
 const Search = () => {
-  const [isLoading, setIsLoading] = useState(Boolean);
+  const [isLoading, setIsLoading] = useState(true);
   const [topRatedMovies, setTopRatedMovies] = useState<typeMovies[]>([]);
   const [isNotFound, setIsNotFound] = useState(true);
 
@@ -20,7 +21,6 @@ const Search = () => {
           `/search/movie?api_key=${API_KEY}&query=${query}&language=pt-BR&page=1&region=BR`
         );
 
-        setIsLoading(false);
         setTopRatedMovies(data);
         setIsNotFound(false);
       };
@@ -28,7 +28,6 @@ const Search = () => {
       Fetch();
     } else {
       setIsNotFound(true);
-      setIsLoading(false);
     }
   };
 
@@ -60,8 +59,6 @@ const Search = () => {
               style={{ width: 360 }}
             />
           </View>
-        ) : isLoading ? (
-          <Text style={{ color: '#fff', fontSize: 24 }}>Loading</Text>
         ) : (
           <View
             style={{
@@ -80,9 +77,11 @@ const Search = () => {
                     width: '42%',
                   }}
                 >
+                  {isLoading && <ActivityIndicator size="large" color="#000" />}
                   <Image
                     key={movies.id}
                     source={{ uri: API_IMG + movies.poster_path }}
+                    onLoad={() => setIsLoading(false)}
                     alt={movies.overview}
                     style={{
                       width: '100%',

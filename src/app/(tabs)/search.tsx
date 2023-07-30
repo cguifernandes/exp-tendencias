@@ -1,33 +1,36 @@
-import { Text, View, Image } from 'native-base';
 import Header from '../../components/header';
 import { API_KEY, API_IMG } from '@env';
-import { ScrollView } from 'native-base';
 import { useState } from 'react';
 import Input from '../../components/input';
 import { typeMovies } from '../../utils/types';
 import AnimatedLottieView from 'lottie-react-native';
 import { getData } from '../../utils/fetch';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, View, Image, ScrollView } from 'react-native';
 
 const Search = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [topRatedMovies, setTopRatedMovies] = useState<typeMovies[]>([]);
+  const [movies, setMovies] = useState<typeMovies[]>([]);
   const [isNotFound, setIsNotFound] = useState(true);
 
   const hanlerSearch = (query: string) => {
     if (query !== '') {
       const Fetch = async () => {
         const data = await getData(
-          `/search/movie?api_key=${API_KEY}&query=${query}&language=pt-BR&page=1&region=BR`
+          `search/multi?api_key=${API_KEY}&query=${query}&language=pt-BR&page=1&region=BR`
         );
 
-        setTopRatedMovies(data);
-        setIsNotFound(false);
+        setMovies(data);
       };
 
       Fetch();
     } else {
-      setIsNotFound(true);
+      const Fetch = async () => {
+        const data = await getData(`trending/all/week?api_key=${API_KEY}&language=pt-BR`);
+
+        setMovies(data);
+      };
+
+      Fetch();
     }
   };
 
@@ -69,7 +72,7 @@ const Search = () => {
               gap: 20,
             }}
           >
-            {topRatedMovies?.map((movies) => {
+            {movies?.map((movies) => {
               return (
                 <View
                   key={movies.id}

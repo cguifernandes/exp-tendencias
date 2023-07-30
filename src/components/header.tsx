@@ -1,5 +1,4 @@
 import { View, Text, TouchableOpacity } from 'react-native';
-import { styled } from 'nativewind';
 
 const Header = ({ title = 'EXP Tendências' }: { title?: string }) => {
   return (

@@ -1,5 +1,6 @@
 import { Text, View } from 'react-native';
 import Header from '../../components/header';
+import { Link } from 'expo-router';
 
 const Profile = () => {
   return (
@@ -13,7 +14,7 @@ const Profile = () => {
     >
       <Header title="Perfil" />
       <View style={{ height: '87.5%' }}>
-        <Text>PROFILE</Text>
+        <Link href={'movies/top_rated'}>asdsad</Link>
       </View>
     </View>
   );

@@ -1,34 +1,36 @@
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image } from 'native-base';
 import Header from '../../components/header';
 import { API_KEY, API_IMG } from '@env';
 import { ScrollView } from 'native-base';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Input from '../../components/input';
-import { typeMovies } from '../../types';
-
-const getData = async () => {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=pt`
-  );
-
-  const data = await response.json();
-
-  return data.results || [];
-};
+import { typeMovies } from '../../utils/types';
+import AnimatedLottieView from 'lottie-react-native';
+import { getData } from '../../utils/fetch';
 
 const Search = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(Boolean);
   const [topRatedMovies, setTopRatedMovies] = useState<typeMovies[]>([]);
+  const [isNotFound, setIsNotFound] = useState(true);
 
-  useEffect(() => {
-    const Fetch = async () => {
-      const data = await getData();
-      setTopRatedMovies(data);
+  const hanlerSearch = (query: string) => {
+    if (query !== '') {
+      const Fetch = async () => {
+        const data = await getData(
+          `/search/movie?api_key=${API_KEY}&query=${query}&language=pt-BR&page=1&region=BR`
+        );
+
+        setIsLoading(false);
+        setTopRatedMovies(data);
+        setIsNotFound(false);
+      };
+
+      Fetch();
+    } else {
+      setIsNotFound(true);
       setIsLoading(false);
-    };
-
-    Fetch();
-  }, []);
+    }
+  };
 
   return (
     <View
@@ -41,9 +43,25 @@ const Search = () => {
     >
       <Header title="Pesquisa" />
       <ScrollView style={{ height: '87.5%' }}>
-        <Input placeholder="Pesquise por filmes ou séries..." />
-        {isLoading ? (
-          <Text>Carregando</Text>
+        <Input onChangeText={hanlerSearch} placeholder="Pesquise por filmes ou séries..." />
+        {isNotFound ? (
+          <View
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginVertical: 40,
+            }}
+          >
+            <AnimatedLottieView
+              source={require('../../../assets/not_found.json')}
+              autoPlay
+              loop
+              style={{ width: 360 }}
+            />
+          </View>
+        ) : isLoading ? (
+          <Text style={{ color: '#fff', fontSize: 24 }}>Loading</Text>
         ) : (
           <View
             style={{
@@ -57,6 +75,7 @@ const Search = () => {
             {topRatedMovies?.map((movies) => {
               return (
                 <View
+                  key={movies.id}
                   style={{
                     width: '42%',
                   }}

@@ -3,7 +3,7 @@ import Header from '../../../components/header';
 import Input from '../../../components/input';
 import { useEffect, useState } from 'react';
 import { API_KEY, API_IMG } from '@env';
-import { typeMovies } from '../../../types';
+import { typeMovies } from '../../../utils/types';
 
 const getData = async () => {
   const response = await fetch(

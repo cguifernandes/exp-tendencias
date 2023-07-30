@@ -1,12 +1,14 @@
-import { StyleProp, TextInput, TextStyle } from 'react-native';
+import { NativeSyntheticEvent, TextInput, TextInputChangeEventData } from 'react-native';
 
 interface InputProps {
   placeholder: string;
+  onChangeText?: (text: string) => void;
 }
 
-const Input = ({ placeholder }: InputProps) => {
+const Input = ({ placeholder, onChangeText }: InputProps) => {
   return (
     <TextInput
+      onChangeText={onChangeText}
       style={{
         padding: 12,
         backgroundColor: '#fff',

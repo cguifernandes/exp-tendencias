@@ -1,18 +1,20 @@
 import Header from '../../components/header';
-import { API_KEY, API_IMG } from '@env';
+import { API_KEY } from '@env';
 import { useState } from 'react';
 import Input from '../../components/input';
-import { typeMovies } from '../../utils/types';
-import AnimatedLottieView from 'lottie-react-native';
+import { MoviesProps } from '../../utils/types';
 import { getData } from '../../utils/fetch';
-import { ActivityIndicator, View, Image, ScrollView } from 'react-native';
+import { View, ScrollView, Text } from 'react-native';
+import Card from '../../components/card';
+import Skeleton from '../../components/skeleton';
 
 const Search = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [movies, setMovies] = useState<typeMovies[]>([]);
-  const [isNotFound, setIsNotFound] = useState(true);
+  const [isLoadingImage, setIsLoadingImage] = useState(true);
+  const [movies, setMovies] = useState<MoviesProps[]>([]);
 
   const hanlerSearch = (query: string) => {
+    setIsLoading(true);
     if (query !== '') {
       const Fetch = async () => {
         const data = await getData(
@@ -20,6 +22,7 @@ const Search = () => {
         );
 
         setMovies(data);
+        setIsLoading(false);
       };
 
       Fetch();
@@ -28,6 +31,7 @@ const Search = () => {
         const data = await getData(`trending/all/week?api_key=${API_KEY}&language=pt-BR`);
 
         setMovies(data);
+        setIsLoading(false);
       };
 
       Fetch();
@@ -46,21 +50,18 @@ const Search = () => {
       <Header title="Pesquisa" />
       <ScrollView style={{ height: '87.5%' }}>
         <Input onChangeText={hanlerSearch} placeholder="Pesquise por filmes ou séries..." />
-        {isNotFound ? (
+        {movies.length == 0 ? (
           <View
             style={{
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              marginVertical: 40,
+              marginVertical: 80,
             }}
           >
-            <AnimatedLottieView
-              source={require('../../../assets/not_found.json')}
-              autoPlay
-              loop
-              style={{ width: 360 }}
-            />
+            <Text style={{ color: '#fff', fontSize: 20, fontFamily: 'Montserrat_700Bold' }}>
+              Nenhum resultado encontrado!
+            </Text>
           </View>
         ) : (
           <View
@@ -68,33 +69,31 @@ const Search = () => {
               flexDirection: 'row',
               flexWrap: 'wrap',
               justifyContent: 'center',
-              marginVertical: 30,
+              marginVertical: 20,
               gap: 20,
             }}
           >
-            {movies?.map((movies) => {
-              return (
-                <View
-                  key={movies.id}
-                  style={{
-                    width: '42%',
-                  }}
-                >
-                  {isLoading && <ActivityIndicator size="large" color="#000" />}
-                  <Image
+            {isLoading ? (
+              <>
+                <Skeleton width={'42%'} height={320} />
+                <Skeleton width={'42%'} height={320} />
+                <Skeleton width={'42%'} height={320} />
+                <Skeleton width={'42%'} height={320} />
+              </>
+            ) : (
+              movies?.map((movies) => {
+                return (
+                  <Card
                     key={movies.id}
-                    source={{ uri: API_IMG + movies.poster_path }}
-                    onLoad={() => setIsLoading(false)}
-                    alt={movies.overview}
-                    style={{
-                      width: '100%',
-                      height: 280,
-                      borderRadius: 4,
-                    }}
+                    id={movies.id}
+                    poster_path={movies.poster_path}
+                    overview={movies.overview}
+                    isLoadingImage={isLoadingImage}
+                    setIsLoadingImage={setIsLoadingImage}
                   />
-                </View>
-              );
-            })}
+                );
+              })
+            )}
           </View>
         )}
       </ScrollView>

@@ -1,7 +1,7 @@
 import { Text, View } from 'native-base';
 import HeaderWrapper from './headerWrapper';
 
-const Header = ({ title = 'EXP Tendências' }: { title?: string }) => {
+const Header = ({ title = 'Home' }: { title?: string }) => {
   return (
     <View
       width={'100%'}

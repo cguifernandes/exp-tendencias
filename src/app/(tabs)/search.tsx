@@ -4,9 +4,9 @@ import { useState } from 'react';
 import Input from '../../components/input';
 import { MoviesProps } from '../../utils/types';
 import { getData } from '../../utils/fetch';
-import { View, ScrollView, Text } from 'react-native';
 import Card from '../../components/card';
 import Skeleton from '../../components/skeleton';
+import { ScrollView, Text, View } from 'native-base';
 
 const Search = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,46 +39,32 @@ const Search = () => {
   };
 
   return (
-    <View
-      style={{
-        backgroundColor: '#44403C',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <View backgroundColor={'#44403C'} height={'100%'} display={'flex'} flexDirection={'column'}>
       <Header title="Pesquisa" />
-      <ScrollView style={{ height: '87.5%' }}>
+      <ScrollView height={'87.5%'}>
         <Input onChangeText={hanlerSearch} placeholder="Pesquise por filmes ou séries..." />
         {movies.length == 0 ? (
-          <View
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginVertical: 80,
-            }}
-          >
-            <Text style={{ color: '#fff', fontSize: 20, fontFamily: 'Montserrat_700Bold' }}>
+          <View display={'flex'} justifyContent={'center'} alignItems={'center'} marginY={'80px'}>
+            <Text color={'#fff'} fontSize={20} fontFamily={'Montserrat_700Bold'}>
               Nenhum resultado encontrado!
             </Text>
           </View>
         ) : (
           <View
+            flexDirection={'row'}
+            flexWrap={'wrap'}
+            justifyContent={'center'}
+            marginY={'40px'}
             style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              marginVertical: 20,
               gap: 20,
             }}
           >
             {isLoading ? (
               <>
-                <Skeleton width={'42%'} height={320} />
-                <Skeleton width={'42%'} height={320} />
-                <Skeleton width={'42%'} height={320} />
-                <Skeleton width={'42%'} height={320} />
+                <Skeleton width={'42%'} height={280} />
+                <Skeleton width={'42%'} height={280} />
+                <Skeleton width={'42%'} height={280} />
+                <Skeleton width={'42%'} height={280} />
               </>
             ) : (
               movies?.map((movies) => {

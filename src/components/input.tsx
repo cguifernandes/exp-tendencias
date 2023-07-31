@@ -1,22 +1,24 @@
-import { NativeSyntheticEvent, TextInput, TextInputChangeEventData } from 'react-native';
+import { Input as InputNativeBase, IInputProps } from 'native-base';
 
-interface InputProps {
+type InputProps = IInputProps & {
   placeholder: string;
   onChangeText?: (text: string) => void;
-}
+};
 
 const Input = ({ placeholder, onChangeText }: InputProps) => {
   return (
-    <TextInput
+    <InputNativeBase
       onChangeText={onChangeText}
-      style={{
-        padding: 12,
-        backgroundColor: '#fff',
-        margin: 20,
-        borderRadius: 8,
-        marginTop: 40,
-      }}
+      padding={'12px'}
+      backgroundColor={'#fff'}
+      marginTop={'40px'}
+      marginX={'20px'}
+      borderWidth={2}
+      borderColor={'#0077B6'}
+      borderRadius={6}
       maxLength={32}
+      size={'md'}
+      fontFamily={'Poppins_400Regular'}
       placeholder={placeholder}
     />
   );

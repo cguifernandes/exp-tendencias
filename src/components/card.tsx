@@ -1,6 +1,6 @@
 import { API_IMG } from '@env';
-import { ActivityIndicator, View, Image } from 'react-native';
 import { MoviesProps } from '../utils/types';
+import { Image, Spinner, View } from 'native-base';
 
 type CardProps = Partial<MoviesProps> & {
   isLoadingImage: boolean;
@@ -9,13 +9,8 @@ type CardProps = Partial<MoviesProps> & {
 
 const Card = ({ id, poster_path, overview, isLoadingImage, setIsLoadingImage }: CardProps) => {
   return (
-    <View
-      key={id}
-      style={{
-        width: '42%',
-      }}
-    >
-      {isLoadingImage && <ActivityIndicator size="large" color="#fff" />}
+    <View key={id} width={'42%'}>
+      {isLoadingImage && <Spinner color="#fff" />}
       <Image
         key={id}
         source={{
@@ -25,11 +20,9 @@ const Card = ({ id, poster_path, overview, isLoadingImage, setIsLoadingImage }: 
         }}
         onLoad={() => setIsLoadingImage(false)}
         alt={overview}
-        style={{
-          width: '100%',
-          height: 280,
-          borderRadius: 4,
-        }}
+        width={'100%'}
+        height={280}
+        borderRadius={6}
       />
     </View>
   );
